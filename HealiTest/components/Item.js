@@ -3,13 +3,20 @@ import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 Icon.loadFont();
 
-export const Item = ({ item }) => {
+export const Item = ({ item, id, setShoppingList }) => {
+	const removeItem = (id) => {
+		setShoppingList((prevList) => {
+			return prevList.filter((item) => item.id !== id);
+		});
+	};
 	return (
 		<View style={styles.itemContainer}>
 			<TouchableOpacity>
 				<View style={styles.subContainer}>
 					<Text style={styles.textStyle}>{item}</Text>
-					<Icon style={styles.iconStyle} name="remove" size={30} color="#900" />
+					<TouchableOpacity style={styles.iconStyle} onPress={() => removeItem(id)}>
+						<Icon name="remove" size={30} color="#900" />
+					</TouchableOpacity>
 				</View>
 			</TouchableOpacity>
 		</View>
@@ -23,8 +30,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#c8a2c8',
 		borderWidth: 2,
 		borderRadius: 10,
-		borderColor: '#efefef',
-		width: '90%'
+		borderColor: '#efefef'
 	},
 	subContainer: {
 		flexDirection: 'row',
