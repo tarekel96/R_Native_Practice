@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { Header } from './components/Header';
 import { Thumbnail } from './components/Thumbnail';
+import { ImageInputText } from './components/ImageInputText';
 
 const App = () => {
 	useEffect(() => {
@@ -20,9 +21,6 @@ const App = () => {
 				});
 		}
 		fetchData();
-		// const data = fetchData();
-		// console.log(data);
-		// console.log('After Data');
 		console.log(list);
 		console.log('END LIST');
 	}, []);
@@ -38,6 +36,7 @@ const App = () => {
 		<View style={styles.mainContainer}>
 			<Header heading="Image FlatList" />
 			<View style={styles.flatListContainer}>
+				<ImageInputText />
 				<FlatList
 					data={list}
 					renderItem={({ item, index }) => (

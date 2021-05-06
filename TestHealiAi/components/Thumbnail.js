@@ -28,11 +28,6 @@ const styles = StyleSheet.create({
 		overflow: 'hidden',
 		marginBottom: 10
 	},
-	image: {
-		width: '100%',
-		height: '100%',
-		resizeMode: 'cover'
-	},
 	imageText: {
 		color: '#fff',
 		fontSize: 20,
