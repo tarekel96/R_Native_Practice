@@ -1,53 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { Header } from './components/Header';
 import { Thumbnail } from './components/Thumbnail';
 
 const App = () => {
-	const [ list, setList ] = useState([
-		{
-			src: 'https://picsum.photos/200',
-			caption: 'Caption',
-			width: 200,
-			height: 200
-		},
-		{
-			src: 'https://picsum.photos/200',
-			caption: 'Caption',
-			width: 200,
-			height: 200
-		},
-		{
-			src: 'https://picsum.photos/200',
-			caption: 'Caption',
-			width: 200,
-			height: 200
-		},
-		{
-			src: 'https://picsum.photos/200',
-			caption: 'Caption',
-			width: 200,
-			height: 200
-		},
-		{
-			src: 'https://picsum.photos/200',
-			caption: 'Caption',
-			width: 200,
-			height: 200
-		},
-		{
-			src: 'https://picsum.photos/200',
-			caption: 'Caption',
-			width: 200,
-			height: 200
-		},
-		{
-			src: 'https://picsum.photos/200',
-			caption: 'Caption',
-			width: 200,
-			height: 200
+	useEffect(() => {
+		function fetchData() {
+			fetch('https://jsonplaceholder.typicode.com/photos', {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((res) => res.json())
+				.then((data) => setList(() => data))
+				.catch((error) => {
+					console.error(error);
+				});
 		}
-	]);
+		fetchData();
+		// const data = fetchData();
+		// console.log(data);
+		// console.log('After Data');
+		console.log(list);
+		console.log('END LIST');
+	}, []);
+	const [ list, setList ] = useState([]);
+	if (list.length === 0) {
+		return (
+			<View>
+				<Text>Loading...</Text>
+			</View>
+		);
+	}
 	return (
 		<View style={styles.mainContainer}>
 			<Header heading="Image FlatList" />
@@ -56,11 +42,11 @@ const App = () => {
 					data={list}
 					renderItem={({ item, index }) => (
 						<Thumbnail
-							key={`ID #${index}`}
-							src={item.src}
-							height={item.height}
-							width={item.width}
-							caption={item.caption}
+							key={item.id}
+							src={item.thumbnailUrl}
+							height={200}
+							width={200}
+							caption={item.title}
 						/>
 					)}
 				/>
